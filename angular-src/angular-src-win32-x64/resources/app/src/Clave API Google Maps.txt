@@ -1,0 +1,3 @@
+Clave: AIzaSyCojg33P1ZSFRgnjLFJqAtivnT1bm_krRU
+
+npm install @agm/core --save
