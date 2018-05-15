@@ -11,8 +11,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron-build": "ng build --prod && electron .",
-    "deploy": "electron-packager . --platform=win32"
+    "electron-build": "ng build --prod && electron .", 
+    "deploy": "ng build --prod && electron-packager . ProarinSA --overwrite",
+    "deployElectron": "electron-packager . ProarinSA --overwrite"
   },
   "private": true,
   "dependencies": {

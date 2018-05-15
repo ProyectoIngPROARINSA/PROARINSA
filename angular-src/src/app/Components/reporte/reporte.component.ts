@@ -35,19 +35,6 @@ export class ReporteComponent implements OnInit {
   }
 
   Confirmar_Limpiar() {
-    let button = this.renderer2.createElement('a');
-    this.renderer2.removeChild(this.modal1Footer.nativeElement, this.modal1Footer.nativeElement.children[1]);
-    this.renderer2.setAttribute(button, "class", "modal-action")
-    this.renderer2.setAttribute(button, "class", "modal-close")
-    this.renderer2.setAttribute(button, "class", "waves-effect")
-    this.renderer2.setAttribute(button, "class", "waves-green")
-    this.renderer2.setAttribute(button, "class", "btn-flat")
-    let txt = this.renderer2.createText("Confirmar")
-    this.renderer2.appendChild(button, txt)
-    this.renderer2.listen(button, 'click', () => {
-      this.limpiar()
-    })
-    this.renderer2.appendChild(this.modal1Footer.nativeElement, button);
     $('#modal1').modal('open');
   }
 

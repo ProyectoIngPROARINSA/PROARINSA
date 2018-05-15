@@ -1,11 +1,13 @@
-var { app, BrowserWindow } = require('electron');
+var { session, app, BrowserWindow } = require('electron');
 
 let win = null;
 
 app.on('ready', () => {
 
     win = new BrowserWindow({
-        width: 1200, height: 720, webPreferences: {
+        width: 1200,
+        height: 720,
+        webPreferences: {
             nodeIntegration: false
         }
     });
@@ -15,17 +17,21 @@ app.on('ready', () => {
         createWindow();
     });
 
-    win.loadURL('http:localhost:8081/dist'); //win.loadURL('');
+    win.loadURL(`file://${__dirname}/dist/index.html`);
 
-    win.on('closed', () => {
-        win = null;
-    })
-/*
-    var session = win.webContents.session
-    session.setProxy("http=192.168.0.5:3000", function() {
-        console.log('done proxy kind of things');
-    });*/
-
+    win.on('close', function () { //   <---- Catch close event
+        win.webContents.session.clearStorageData(
+        {
+            storages: [
+                'websql',
+                'localstorage'
+            ]
+        },
+            function () {
+                console.log('LocalStorage cleared')
+            }
+        );
+    });
 })
 
 app.on('activate', () => {

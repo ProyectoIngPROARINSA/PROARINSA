@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
         if (this.ingresarService.loggedIn()) {
             return true;
         } else {
-            Materialize.toast('Error de seguridad, inicie sesión', 3000, 'red rounded')
+            Materialize.toast('Inicie sesión para continuar', 3000, 'red rounded')
             this.router.navigate(['/ingresar']);
             return false;
         }

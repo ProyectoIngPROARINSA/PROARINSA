@@ -18,7 +18,7 @@ export class GerenteGuard implements CanActivate {
         }
         else {
             Materialize.toast('Error de seguridad', 3000, 'red rounded')
-            this.router.navigate(['/inicio']);
+            this.router.navigate(['/cliente']);
             return false
         }
     }

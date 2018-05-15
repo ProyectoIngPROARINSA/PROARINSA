@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http'
 //guards
 import { AuthGuard } from './Guards/auth.guard'
 import { GerenteGuard } from './Guards/gerente.guard'
+import { LoggedGuard } from './Guards/logged.guard'
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -50,19 +51,19 @@ import { FilterReportePipe } from './Filters/filter-reporte.pipe';
 
 
 const appRoutes: Routes = [
-  { path: '', component: ClienteComponent, canActivate: [AuthGuard] },
+  { path: '', component: IngresarComponent, canActivate: [LoggedGuard] },
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   { path: 'inicio', component: MainPageComponent },
-  { path: 'ingresar', component: IngresarComponent },
+  { path: 'ingresar', component: IngresarComponent, canActivate: [LoggedGuard] },
   { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard, GerenteGuard] },
   { path: 'archivos', component: ArchivosComponent },
   { path: 'gerente_bridge', component: GerenteBridgeComponent },
   { path: 'empleado', component: EmpleadosComponent, canActivate: [AuthGuard, GerenteGuard] },
   { path: 'proyecto', component: ProyectosComponent, canActivate: [AuthGuard] },
   { path: 'google', component: GoogleComponent, canActivate: [AuthGuard] },
-  { path: 'planilla', component: PlanillaComponent },
-  { path: 'proveedores', component: ProveedoresComponent },
-  { path: 'reporte', component: ReporteComponent }
+  { path: 'planilla', component: PlanillaComponent, canActivate: [AuthGuard] },
+  { path: 'proveedores', component: ProveedoresComponent, canActivate: [AuthGuard] },
+  { path: 'reporte', component: ReporteComponent, canActivate: [AuthGuard, GerenteGuard] }
 ]
 
 @NgModule({
@@ -93,7 +94,7 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }), //RouterModule.forRoot(appRoutes)
     FormsModule,
     HttpModule,
     MaterializeModule,
@@ -103,8 +104,10 @@ const appRoutes: Routes = [
     })
 
   ],
+  exports: [RouterModule],
   providers: [ProveedoresService, PlanillaService, ClientesService, IngresarService, EmpleadosService,
-    ProyectosService, ReporteService, CarpetasService, ArchivosService, DataService, AuthGuard, GerenteGuard],
+    ProyectosService, ReporteService, CarpetasService, ArchivosService, DataService, AuthGuard, GerenteGuard
+    , LoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
